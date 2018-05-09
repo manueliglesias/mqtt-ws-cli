@@ -2,6 +2,10 @@
 
 var mqtt = require('mqtt')
 var argv = require('yargs').argv;
+
+var globalTunnel = require('global-tunnel-ng');
+globalTunnel.initialize();
+
 console.log("Connecting...")
 
 var wsh = argv.url;
@@ -33,8 +37,8 @@ client.on('packetsend', function(packet) {
 })
 
 
-client.on('close', function() {
-	console.log("Closed!")
+client.on('close', function(args) {
+	console.log("Closed!", args)
 	client.end()
 })
 
